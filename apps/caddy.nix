@@ -1,4 +1,5 @@
 {
+  pkgs,
   _domain_base,
   ...
 }:
@@ -90,6 +91,9 @@
       request_body {
           max_size 50MB
       }
+
+      root * ${pkgs.cinny}
+      file_server
     '';
 
     virtualHosts."https://mas.${_domain_base}".extraConfig = ''
