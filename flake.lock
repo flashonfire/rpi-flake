@@ -180,18 +180,6 @@
         "type": "indirect"
       }
     },
-    "nixpkgs-patch-fix-git-cross-compile": {
-      "flake": false,
-      "locked": {
-        "narHash": "sha256-Ksiomme9nXAdbM9mWDsKekH++gOoknABeNbVn3LXIRk=",
-        "type": "file",
-        "url": "https://github.com/FlashOnFire/nixpkgs/commit/9da532b0fb2e56c07d19fc2031ed8475ea62a208.patch"
-      },
-      "original": {
-        "type": "file",
-        "url": "https://github.com/FlashOnFire/nixpkgs/commit/9da532b0fb2e56c07d19fc2031ed8475ea62a208.patch"
-      }
-    },
     "nixpkgs-patch-fix-mas-cross-compile": {
       "flake": false,
       "locked": {
@@ -226,7 +214,6 @@
         "flake-utils": "flake-utils",
         "nixos-raspberrypi": "nixos-raspberrypi",
         "nixpkgs": "nixpkgs",
-        "nixpkgs-patch-fix-git-cross-compile": "nixpkgs-patch-fix-git-cross-compile",
         "nixpkgs-patch-fix-mas-cross-compile": "nixpkgs-patch-fix-mas-cross-compile",
         "nixpkgs-patcher": "nixpkgs-patcher",
         "systems": "systems_2"

@@ -22,11 +22,6 @@
     #   flake = false;
     # };
 
-    nixpkgs-patch-fix-git-cross-compile = {
-      url = "https://github.com/FlashOnFire/nixpkgs/commit/9da532b0fb2e56c07d19fc2031ed8475ea62a208.patch";
-      flake = false;
-    };
-
     nixpkgs-patch-fix-mas-cross-compile = {
       url = "https://github.com/FlashOnFire/nixpkgs/commit/5370f19009df.patch";
       flake = false;
