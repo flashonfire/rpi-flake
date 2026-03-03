@@ -76,24 +76,29 @@
     virtualHosts."https://matrix.${_domain_base}".extraConfig = ''
       # Forward login/logout/refresh to the auth service (MAS)
       @mas path_regexp ^/_matrix/client/(.*)/(login|logout|refresh)
-      reverse_proxy @mas localhost:8089
-      # OR via Unix domain socket:
-      # reverse_proxy @mas unix//var/run/mas.sock
-
       # Forward everything else Matrix-related to Synapse
       @synapse path_regexp ^(/_matrix|/_synapse/client|/_synapse/mas)
-      reverse_proxy @synapse localhost:8008 {
-          header_up X-Forwarded-For {remote_host}
-          header_up X-Forwarded-Proto {scheme}
-          header_up Host {host}
+
+      route {
+          # MAS routes (must be before @synapse since @synapse also matches /_matrix)
+          reverse_proxy @mas localhost:8089
+
+          # Synapse routes
+          reverse_proxy @synapse localhost:8008 {
+              header_up X-Forwarded-For {remote_host}
+              header_up X-Forwarded-Proto {scheme}
+              header_up Host {host}
+          }
+
+          # Cinny web client for everything else
+          root * ${pkgs.cinny}
+          try_files {path} /index.html
+          file_server
       }
 
       request_body {
           max_size 50MB
       }
-
-      root * ${pkgs.cinny}
-      file_server
     '';
 
     virtualHosts."https://mas.${_domain_base}".extraConfig = ''

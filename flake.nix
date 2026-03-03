@@ -27,6 +27,11 @@
       flake = false;
     };
 
+    nixpkgs-patch-fix-cinny-cross = {
+      url = "https://patch-diff.githubusercontent.com/raw/NixOS/nixpkgs/pull/496178.patch";
+      flake = false;
+    };
+
     agenix = {
       url = "github:ryantm/agenix";
       inputs = {
