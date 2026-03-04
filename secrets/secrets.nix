@@ -26,4 +26,5 @@ mkSecret [
   "forgejo-smtp"
   "forgejo-runner-token"
   "forgejo-oidc-shared-secret"
+  "vaultwarden-smtp"
 ]

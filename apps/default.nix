@@ -10,7 +10,8 @@
     ./mas.nix
     ./postgres.nix
     ./forgejo.nix
-    # ./vaultwarden.nix
+    ./vaultwarden.nix
+    # ./immich.nix
     # ./onlyoffice.nix
   ];
 }
