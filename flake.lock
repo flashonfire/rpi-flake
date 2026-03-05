@@ -167,11 +167,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1772542754,
-        "narHash": "sha256-WGV2hy+VIeQsYXpsLjdr4GvHv5eECMISX1zKLTedhdg=",
+        "lastModified": 1772624091,
+        "narHash": "sha256-QKyJ0QGWBn6r0invrMAK8dmJoBYWoOWy7lN+UHzW1jc=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "8c809a146a140c5c8806f13399592dbcb1bb5dc4",
+        "rev": "80bdc1e5ce51f56b19791b52b2901187931f5353",
         "type": "github"
       },
       "original": {
@@ -183,7 +183,7 @@
     "nixpkgs-patch-fix-cinny-cross": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-lbhxxu824sHD5Y3MG7+kMvg64R1nwzyFJtCxmVgn/Sg=",
+        "narHash": "sha256-gP+opogEFP9c69upKdY62XSPgEFtawkCbjvmddU6Q9Q=",
         "type": "file",
         "url": "https://patch-diff.githubusercontent.com/raw/NixOS/nixpkgs/pull/496178.patch"
       },
@@ -202,6 +202,18 @@
       "original": {
         "type": "file",
         "url": "https://github.com/FlashOnFire/nixpkgs/commit/5370f19009df.patch"
+      }
+    },
+    "nixpkgs-patch-fix-pgrx-extension-cross": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-LZo0VQ0oQVrSztKhbbRcc2W9QL2d8ugEWrSar9VIHJ8=",
+        "type": "file",
+        "url": "https://github.com/FlashOnFire/nixpkgs/commit/e3a4b0f1917108751fa7f92dc98cf5c3c0229707.patch"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://github.com/FlashOnFire/nixpkgs/commit/e3a4b0f1917108751fa7f92dc98cf5c3c0229707.patch"
       }
     },
     "nixpkgs-patch-fix-python-ml-dtypes-cross": {
@@ -312,6 +324,7 @@
         "nixpkgs": "nixpkgs",
         "nixpkgs-patch-fix-cinny-cross": "nixpkgs-patch-fix-cinny-cross",
         "nixpkgs-patch-fix-mas-cross-compile": "nixpkgs-patch-fix-mas-cross-compile",
+        "nixpkgs-patch-fix-pgrx-extension-cross": "nixpkgs-patch-fix-pgrx-extension-cross",
         "nixpkgs-patch-fix-python-ml-dtypes-cross": "nixpkgs-patch-fix-python-ml-dtypes-cross",
         "nixpkgs-patch-fix-python-onnx-cross": "nixpkgs-patch-fix-python-onnx-cross",
         "nixpkgs-patch-fix-python-onnx-runtime-cross": "nixpkgs-patch-fix-python-onnx-runtime-cross",
