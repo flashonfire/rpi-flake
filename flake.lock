@@ -252,6 +252,18 @@
         "url": "https://github.com/FlashOnFire/nixpkgs/commit/e3a4b0f1917108751fa7f92dc98cf5c3c0229707.patch"
       }
     },
+    "nixpkgs-patch-fix-python-insightface-cross": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-ubG8NVTSgA4vK+OIqorF5rCoM249+xsWa4e+SJbFhBk=",
+        "type": "file",
+        "url": "https://github.com/FlashOnFire/nixpkgs/commit/8dae88c1c0830f3f9604a91a21ba60d83b3497d8.patch"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://github.com/FlashOnFire/nixpkgs/commit/8dae88c1c0830f3f9604a91a21ba60d83b3497d8.patch"
+      }
+    },
     "nixpkgs-patch-fix-python-ml-dtypes-cross": {
       "flake": false,
       "locked": {
@@ -376,6 +388,7 @@
         "nixpkgs-patch-fix-mas-cross-compile": "nixpkgs-patch-fix-mas-cross-compile",
         "nixpkgs-patch-fix-opencv-cross": "nixpkgs-patch-fix-opencv-cross",
         "nixpkgs-patch-fix-pgrx-extension-cross": "nixpkgs-patch-fix-pgrx-extension-cross",
+        "nixpkgs-patch-fix-python-insightface-cross": "nixpkgs-patch-fix-python-insightface-cross",
         "nixpkgs-patch-fix-python-ml-dtypes-cross": "nixpkgs-patch-fix-python-ml-dtypes-cross",
         "nixpkgs-patch-fix-python-onnx-cross": "nixpkgs-patch-fix-python-onnx-cross",
         "nixpkgs-patch-fix-python-onnx-runtime-cross": "nixpkgs-patch-fix-python-onnx-runtime-cross",

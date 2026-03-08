@@ -209,6 +209,30 @@ in
               userinfo_signed_response_alg = "none";
               token_endpoint_auth_method = "client_secret_basic";
             }
+            {
+              client_id = "CUkbjHcjkc9K4ZyCdcnaYwdub66eY5F-BJScctEVS5DBTeUp954ZzWNnAbbGWCIGv1Xi58Nf";
+              client_name = "immich";
+              client_secret = "$pbkdf2-sha512$310000$t6weBk.826ThdRzBzIwbYg$.uvokVpsnWxBoL9RYSWOpRAmH282KdgL/Kn3gWtplzix86xfIBc6WKp9D8monyMW4bZ3Zn8a2m4qjiKhaN8xGg";
+              public = false;
+              authorization_policy = "one_factor";
+              require_pkce = false;
+              pkce_challenge_method = "";
+              redirect_uris = [
+                "https://immich.${_domain_base}/auth/login"
+                "https://immich.${_domain_base}/user-settings"
+                "app.immich:///oauth-callback"
+              ];
+              scopes = [
+                "openid"
+                "email"
+                "profile"
+              ];
+              response_types = [ "code" ];
+              grant_types = [ "authorization_code" ];
+              access_token_signed_response_alg = "RS256";
+              userinfo_signed_response_alg = "RS256";
+              token_endpoint_auth_method = "client_secret_post";
+            }
           ];
         };
       };

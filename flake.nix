@@ -92,6 +92,11 @@
       flake = false;
     };
 
+    nixpkgs-patch-fix-python-insightface-cross = {
+      url = "https://github.com/FlashOnFire/nixpkgs/commit/8dae88c1c0830f3f9604a91a21ba60d83b3497d8.patch";
+      flake = false;
+    };
+
     agenix = {
       url = "github:ryantm/agenix";
       inputs = {

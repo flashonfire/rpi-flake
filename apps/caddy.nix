@@ -123,17 +123,7 @@
     '';
 
     virtualHosts."https://immich.${_domain_base}".extraConfig = ''
-      forward_auth unix//run/authelia/authelia.sock {
-        uri /api/authz/forward-auth
-        ## The following commented line is for configuring the Authelia URL in the proxy. We strongly suggest
-        ## this is configured in the Session Cookies section of the Authelia configuration.
-        # uri /api/authz/forward-auth?authelia_url=https://auth.example.com/
-        copy_headers Remote-User Remote-Groups Remote-Email Remote-Name
-      }
-
-      reverse_proxy :2283 {
-        header_up Cookie "authelia_session=[^;]+" "authelia_session=_"
-      }
+      reverse_proxy :2283
     '';
   };
 }

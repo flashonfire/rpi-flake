@@ -11,7 +11,7 @@
     ./postgres.nix
     ./forgejo.nix
     ./vaultwarden.nix
-    # ./immich.nix
+    ./immich.nix
     # ./onlyoffice.nix
   ];
 }
