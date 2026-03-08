@@ -128,6 +128,7 @@
   environment.systemPackages = with pkgs; [
     btop
     wget
+    kitty.terminfo
   ];
 
   services.openssh = {
