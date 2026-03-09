@@ -45,6 +45,11 @@
   services.zfs.autoScrub.enable = true;
   networking.hostId = "44cadff6";
 
+  boot.extraModprobeConfig = ''
+    options zfs zfs_vdev_async_write_max_active=2
+    options zfs zfs_dirty_data_max=134217728
+  '';
+
   networking.hostName = "lithium";
 
   networking.hosts = {
@@ -129,6 +134,7 @@
     btop
     wget
     kitty.terminfo
+    fio
   ];
 
   services.openssh = {
