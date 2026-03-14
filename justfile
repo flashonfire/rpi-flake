@@ -16,6 +16,14 @@ build:
 nom-build:
     nix-shell -p nix-output-monitor --run "nom build .#nixosConfigurations.lithium.config.system.build.toplevel"
 
+# Builds the flake (with keep-going flag)
+build-k:
+    nix build .#nixosConfigurations.lithium.config.system.build.toplevel --keep-going
+
+# Builds the flake and display progress using nix-output-monitor (with keep-going flag)
+nom-build-k:
+    nix-shell -p nix-output-monitor --run "nom build .#nixosConfigurations.lithium.config.system.build.toplevel --keep-going"
+
 # Nix flake check
 check:
     nix flake check
