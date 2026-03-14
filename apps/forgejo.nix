@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  lib,
   _domain_base,
   _smtp_address,
   _utils,
@@ -13,6 +14,7 @@ let
   secrets = _utils.setupSecrets config {
     secrets = [
       "forgejo-smtp"
+      "forgejo-oidc-shared-secret"
       "forgejo-runner-token"
     ];
     extra = {
@@ -69,6 +71,7 @@ in
         #     --secret   secret \
         #     --auto-discover-url ${sso.endpoint}/.well-known/openid-configuration
         #     --scopes='openid email profile groups'
+        # It is automatically done using the preStart Systemd hook below
 
         authelia = {
           ENABLE_OPENID_SIGNIN = true;
@@ -136,27 +139,61 @@ in
     };
   };
 
-  # Takes the form of "gitea-runner-<instance>"
-  systemd.services.gitea-runner-lithium = {
-    # Prevents Forgejo runner deployments
-    # from being restarted on a system switch,
-    # thus breaking a deployment.
-    # You'll have to restart the runner manually
-    # or reboot the system after a deployment!
-    # restartIfChanged = false;
+  systemd.services = {
+    # Auto register OIDC
+    forgejo.preStart = ''
+      auth="${lib.getExe config.services.forgejo.package} admin auth"
 
-    path = with pkgs; [
-      nix
-      openssh
-    ];
+      echo "Trying to find existing SSO configuration"
+      set +e -o pipefail
+      id="$($auth list | grep "authelia.*OAuth2" |  cut -d'	' -f1)"
+      found=$?
+      set -e +o pipefail
 
-    serviceConfig = {
-      MemoryMax = "4G";
-      CPUQuota = "50%";
-      Nice = 10;
+      if [[ $found = 0 ]]; then
+        echo Found sso configuration at id=$id, updating it
+        $auth update-oauth \
+          --id       $id \
+          --name     authelia \
+          --provider openidConnect \
+          --key      SvETHomqH_6hOoZVLqZhKABkrkEMCJmltIOV8At-dznHOZyPDeG8stGCN_M5R0Ipy1wN2cBO \
+          --secret   $(tr -d '\n' < ${secrets.get "forgejo-oidc-shared-secret"}) \
+          --auto-discover-url https://auth.${_domain_base}/.well-known/openid-configuration \
+          --scopes='openid email profile groups'
+      else
+        echo Did not find any SSO configuration, creating one
+        $auth add-oauth \
+          --name     authelia \
+          --provider openidConnect \
+          --key      SvETHomqH_6hOoZVLqZhKABkrkEMCJmltIOV8At-dznHOZyPDeG8stGCN_M5R0Ipy1wN2cBO \
+          --secret   $(tr -d '\n' < ${secrets.get "forgejo-oidc-shared-secret"}) \
+          --auto-discover-url https://auth.${_domain_base}/.well-known/openid-configuration \
+          --scopes='openid email profile groups'
+      fi
+    '';
+
+    # Takes the form of "gitea-runner-<instance>"
+    gitea-runner-lithium = {
+      # Prevents Forgejo runner deployments
+      # from being restarted on a system switch,
+      # thus breaking a deployment.
+      # You'll have to restart the runner manually
+      # or reboot the system after a deployment!
+      restartIfChanged = false;
+
+      path = with pkgs; [
+        nix
+        openssh
+      ];
+
+      serviceConfig = {
+        MemoryMax = "4G";
+        CPUQuota = "50%";
+        Nice = 10;
+      };
+
+      wants = [ "forgejo.service" ];
+      after = [ "forgejo.service" ];
     };
-
-    wants = [ "forgejo.service" ];
-    after = [ "forgejo.service" ];
   };
 }
