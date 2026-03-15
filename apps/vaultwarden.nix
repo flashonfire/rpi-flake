@@ -23,6 +23,7 @@ in
 
   services.vaultwarden = {
     enable = true;
+
     config = {
       DOMAIN = "https://vaultwarden.${_domain_base}";
       SIGNUPS_ALLOWED = false;
@@ -35,8 +36,10 @@ in
       SMTP_FROM_NAME = "VaultWarden";
       SMTP_SECURITY = "starttls";
     };
-    backupDir = "/storage/vaultwarden_backup";
-    # dbBackend = "postgresql";
+
+    dbBackend = "postgresql";
+    configurePostgres = true;
+
     environmentFile = secrets.get "vaultwarden-smtp";
   };
 }
