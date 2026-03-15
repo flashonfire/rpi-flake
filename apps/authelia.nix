@@ -175,7 +175,7 @@ in
           clients = [
             {
               client_id = "IkhbiLxn.MQVKQeBFAlvMfu3-RdUMScM0PcnpDSyjSTGwjs0VGveq_yii.GOavtNyoZYC9U6";
-              client_name = "matrix";
+              client_name = "Matrix";
               client_secret = "$pbkdf2-sha512$310000$XTfwKsUrL8t49jUidXws3A$o3B8DWtgQkSdYje8HKmFIqY/luftDyTSgPD7kHATJrhVDoq40.47iIvwIooNVA3jguKuf7zQ21PtA.AseGQUNA";
               public = false;
               authorization_policy = "two_factor";
@@ -197,7 +197,7 @@ in
             }
             {
               client_id = "SvETHomqH_6hOoZVLqZhKABkrkEMCJmltIOV8At-dznHOZyPDeG8stGCN_M5R0Ipy1wN2cBO";
-              client_name = "forgejo";
+              client_name = "Forgejo";
               client_secret = "$pbkdf2-sha512$310000$MAAzIWeSBuNk/3m5tNrWEQ$g/b7TvzLzswZ5wK3nYwXMDBZmQ4bVp18cRxWc4Z/.oKm5S8I2lf3MxV4oNmb5.w4UQVY854tidWxeV27boLDZg";
               public = false;
               authorization_policy = "two_factor";
@@ -217,7 +217,7 @@ in
             }
             {
               client_id = "CUkbjHcjkc9K4ZyCdcnaYwdub66eY5F-BJScctEVS5DBTeUp954ZzWNnAbbGWCIGv1Xi58Nf";
-              client_name = "immich";
+              client_name = "Immich";
               client_secret = "$pbkdf2-sha512$310000$t6weBk.826ThdRzBzIwbYg$.uvokVpsnWxBoL9RYSWOpRAmH282KdgL/Kn3gWtplzix86xfIBc6WKp9D8monyMW4bZ3Zn8a2m4qjiKhaN8xGg";
               public = false;
               authorization_policy = "two_factor";
