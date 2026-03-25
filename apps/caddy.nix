@@ -22,6 +22,21 @@ let
       }
     ];
   };
+
+  cinny = pkgs.cinny.override {
+    conf = {
+      defaultHomeserver = 0;
+      homeserverList = [
+        "lithium.ovh"
+        "onyx.ovh"
+        "converser.eu"
+        "matrix.org"
+        "mozilla.org"
+        "unredacted.org"
+        "xmr.se"
+      ];
+    };
+  };
 in
 {
   users.users."caddy".extraGroups = [
@@ -137,7 +152,7 @@ in
           }
 
           # Cinny web client for everything else
-          root * ${pkgs.cinny}
+          root * ${cinny}
           try_files {path} /index.html
           file_server
       }
