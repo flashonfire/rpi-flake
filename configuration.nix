@@ -45,9 +45,17 @@
   networking.hostId = "44cadff6";
 
   boot.extraModprobeConfig = ''
-    options zfs zfs_vdev_async_write_max_active=2
-    options zfs_vdev_async_read_max_active=2
-    options zfs zfs_dirty_data_max=134217728
+    options zfs zfs_vdev_sync_read_max_active=1
+    options zfs zfs_vdev_sync_write_max_active=1
+    options zfs zfs_vdev_sync_read_min_active=1
+    options zfs zfs_vdev_sync_write_min_active=1
+    options zfs zfs_vdev_async_read_max_active=1
+    options zfs zfs_vdev_async_write_max_active=1
+    options zfs zfs_vdev_async_read_min_active=1
+    options zfs zfs_vdev_async_write_min_active=1
+    options zfs zfs_vdev_max_active=8
+    options zfs zfs_txg_timeout=5
+    options zfs zfs_dirty_data_max=67108864
   '';
 
   networking.hostName = "lithium";

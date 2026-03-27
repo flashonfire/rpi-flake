@@ -36,10 +36,10 @@
         };
         # # PCIe Gen 3.0
         # # https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#pcie-gen-3-0
-        # pciex1_gen = {
-        #   enable = true;
-        #   value = "3";
-        # };
+        pciex1_gen = {
+          enable = true;
+          value = "2";
+        };
 
       };
 

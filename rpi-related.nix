@@ -26,5 +26,7 @@
     "nvme_core.default_ps_max_latency_us=0"
     "pcie_aspm=off"
     "nvme.max_host_mem_size_mb=64"
+    "pcie_port_pm=off"
+    "nvme_core.io_timeout=255"
   ];
 }
