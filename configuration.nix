@@ -56,7 +56,15 @@
     options zfs zfs_vdev_max_active=8
     options zfs zfs_txg_timeout=5
     options zfs zfs_dirty_data_max=67108864
+    options zfs zfs_arc_max=2147483648
   '';
+
+  zramSwap = {
+    enable = true;
+    algorithm = "zstd";
+    memoryPercent = 50;
+  };
+  boot.kernel.sysctl."vm.swappiness" = 10;
 
   networking.hostName = "lithium";
 
