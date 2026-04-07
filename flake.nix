@@ -17,11 +17,6 @@
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
 
-    nixpkgs-patch-fix-kitty-cross = {
-      url = "https://github.com/FlashOnFire/nixpkgs/commit/21ac28efd25e238b5599fad64077e79b7fb2d08d.patch";
-      flake = false;
-    };
-
     agenix = {
       url = "github:ryantm/agenix";
       inputs = {
