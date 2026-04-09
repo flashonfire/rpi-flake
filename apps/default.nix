@@ -14,6 +14,5 @@
     ./vaultwarden.nix
     ./immich.nix
     ./crowdsec.nix
-    # ./onlyoffice.nix
   ];
 }
