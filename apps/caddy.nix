@@ -50,7 +50,35 @@ in
       admin off
     '';
 
+    extraConfig = ''
+      (common) {
+        encode zstd gzip
+        header {
+          Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+          X-Content-Type-Options "nosniff"
+          # X-Frame-Options "DENY"
+          Referrer-Policy "strict-origin-when-cross-origin"
+          Content-Security-Policy-Report-Only "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' wss: https:;"
+          -Server
+        }
+      }
+
+      (default_permissions) {
+        header Permissions-Policy "accelerometer=(), autoplay=(), camera=(), display-capture=(), encrypted-media=(), fullscreen=(), geolocation=(), gyroscope=(), interest-cohort=(), magnetometer=(), microphone=(), midi=(), payment=(), picture-in-picture=(), publickey-credentials-get=(), sync-xhr=(), usb=(), xr-spatial-tracking=()"
+      }
+
+      (authelia_auth) {
+        forward_auth unix//run/authelia/authelia.sock {
+          uri /api/authz/forward-auth
+          copy_headers Remote-User Remote-Groups Remote-Email Remote-Name
+        }
+      }
+    '';
+
     virtualHosts."https://${_domain_base}".extraConfig = ''
+      import common
+      import default_permissions
+
       handle /.well-known/matrix/* {
         header /.well-known/matrix/* Access-Control-Allow-Origin *
         header /.well-known/matrix/* Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
@@ -62,13 +90,7 @@ in
       }
 
       handle {
-        forward_auth unix//run/authelia/authelia.sock {
-          uri /api/authz/forward-auth
-          ## The following commented line is for configuring the Authelia URL in the proxy. We strongly suggest
-          ## this is configured in the Session Cookies section of the Authelia configuration.
-          # uri /api/authz/forward-auth?authelia_url=https://auth.example.com/
-          copy_headers Remote-User Remote-Groups Remote-Email Remote-Name
-        }
+        import authelia_auth
 
         # header_up Cookie "authelia_session=[^;]+" "authelia_session=_"
         respond "hello world"
@@ -76,65 +98,61 @@ in
     '';
 
     virtualHosts."https://auth.${_domain_base}".extraConfig = ''
+      import common
+      header Permissions-Policy "accelerometer=(), autoplay=(), camera=(), display-capture=(), encrypted-media=(), fullscreen=(), geolocation=(), gyroscope=(), interest-cohort=(), magnetometer=(), microphone=(), midi=(), payment=(), picture-in-picture=(), publickey-credentials-get=(self), sync-xhr=(), usb=(), xr-spatial-tracking=()"
+
       reverse_proxy unix//run/authelia/authelia.sock {
-        header_down X-Real-IP {http.request.remote}
-        header_down X-Forwarded-For {http.request.remote}
+        header_up X-Real-IP {remote_host}
       }
     '';
 
     virtualHosts."https://dns.${_domain_base}".extraConfig = ''
-      forward_auth unix//run/authelia/authelia.sock {
-        uri /api/authz/forward-auth
-        ## The following commented line is for configuring the Authelia URL in the proxy. We strongly suggest
-        ## this is configured in the Session Cookies section of the Authelia configuration.
-        # uri /api/authz/forward-auth?authelia_url=https://auth.example.com/
-        copy_headers Remote-User Remote-Groups Remote-Email Remote-Name
-      }
+      import common
+      import default_permissions
+      import authelia_auth
 
       reverse_proxy :3005 {
         header_up Cookie "authelia_session=[^;]+" "authelia_session=_"
       }
     '';
 
-    virtualHosts."https://office.${_domain_base}".extraConfig = ''
-      forward_auth unix//run/authelia/authelia.sock {
-        uri /api/authz/forward-auth
-        ## The following commented line is for configuring the Authelia URL in the proxy. We strongly suggest
-        ## this is configured in the Session Cookies section of the Authelia configuration.
-        # uri /api/authz/forward-auth?authelia_url=https://auth.example.com/
-        copy_headers Remote-User Remote-Groups Remote-Email Remote-Name
-      }
-
-      reverse_proxy :8000 {
-        header_up Cookie "authelia_session=[^;]+" "authelia_session=_"
-      }
-    '';
-
     virtualHosts."https://matrix-rtc.${_domain_base}".extraConfig = ''
+      import common
+      import default_permissions
+
       # Route for lk-jwt-service with livekit/jwt prefix
       @jwt_service path /livekit/jwt/sfu/get /livekit/jwt/healthz
       handle @jwt_service {
         uri strip_prefix /livekit/jwt
         reverse_proxy http://[::1]:8080 {
-          header_up Host {host}
-          header_up X-Forwarded-Server {host}
           header_up X-Real-IP {remote_host}
-          header_up X-Forwarded-For {remote_host}
         }
       }
 
       # Default route for livekit
       handle {
         reverse_proxy http://localhost:7880 {
-          header_up Host {host}
-          header_up X-Forwarded-Server {host}
           header_up X-Real-IP {remote_host}
-          header_up X-Forwarded-For {remote_host}
         }
       }
     '';
 
+    virtualHosts."https://cinny.${_domain_base}".extraConfig = ''
+      import common
+      header Permissions-Policy "accelerometer=(), autoplay=(self), camera=(self), display-capture=(self), encrypted-media=(), fullscreen=(self), geolocation=(), gyroscope=(), interest-cohort=(), magnetometer=(), microphone=(self), midi=(), payment=(), picture-in-picture=(self), publickey-credentials-get=(), sync-xhr=(), usb=(), xr-spatial-tracking=()"
+
+      @static path_regexp static \.(js|css|woff2|png|svg|ico|webp)$
+      header @static Cache-Control "public, max-age=31536000, immutable"
+
+      root * ${cinny}
+      try_files {path} /index.html
+      file_server
+    '';
+
     virtualHosts."https://matrix.${_domain_base}".extraConfig = ''
+      import common
+      import default_permissions
+
       # Forward login/logout/refresh to the auth service (MAS)
       @mas path_regexp ^/_matrix/client/(.*)/(login|logout|refresh)
       # Forward everything else Matrix-related to Synapse
@@ -145,16 +163,11 @@ in
           reverse_proxy @mas localhost:8089
 
           # Synapse routes
-          reverse_proxy @synapse localhost:8008 {
-              header_up X-Forwarded-For {remote_host}
-              header_up X-Forwarded-Proto {scheme}
-              header_up Host {host}
-          }
+          reverse_proxy @synapse localhost:8008
 
-          # Cinny web client for everything else
-          root * ${cinny}
-          try_files {path} /index.html
-          file_server
+          handle {
+            redir https://cinny.${_domain_base}{uri} 302
+          }
       }
 
       request_body {
@@ -163,20 +176,30 @@ in
     '';
 
     virtualHosts."https://mas.${_domain_base}".extraConfig = ''
+      import common
+      import default_permissions
+
       reverse_proxy localhost:8089
     '';
 
     virtualHosts."${_domain_base}:8448".extraConfig = ''
+      import common
+      import default_permissions
+
       reverse_proxy /_matrix/* localhost:8008
       reverse_proxy /_synapse/client/* localhost:8008
     '';
 
     virtualHosts."https://git.${_domain_base}".extraConfig = ''
+      import common
+      header Permissions-Policy "accelerometer=(), autoplay=(), camera=(), display-capture=(), encrypted-media=(), fullscreen=(), geolocation=(), gyroscope=(), interest-cohort=(), magnetometer=(), microphone=(), midi=(), payment=(), picture-in-picture=(), publickey-credentials-get=(self), sync-xhr=(), usb=(), xr-spatial-tracking=()"
+
       reverse_proxy :3004
     '';
 
     virtualHosts."https://vaultwarden.${_domain_base}".extraConfig = ''
-      encode zstd gzip
+      import common
+      header Permissions-Policy "accelerometer=(), autoplay=(), camera=(), display-capture=(), encrypted-media=(), fullscreen=(), geolocation=(), gyroscope=(), interest-cohort=(), magnetometer=(), microphone=(), midi=(), payment=(), picture-in-picture=(), publickey-credentials-get=(self), sync-xhr=(), usb=(), xr-spatial-tracking=()"
 
       reverse_proxy [::1]:8222 {
           header_up X-Real-IP {remote_host}
@@ -184,6 +207,9 @@ in
     '';
 
     virtualHosts."https://immich.${_domain_base}".extraConfig = ''
+      import common
+      header Permissions-Policy "accelerometer=(), autoplay=(self), camera=(), display-capture=(), encrypted-media=(), fullscreen=(self), geolocation=(), gyroscope=(), interest-cohort=(), magnetometer=(), microphone=(), midi=(), payment=(), picture-in-picture=(self), publickey-credentials-get=(), sync-xhr=(), usb=(), xr-spatial-tracking=()"
+
       reverse_proxy :2283
     '';
   };
