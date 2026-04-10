@@ -102,15 +102,11 @@ in
                   }
                 ];
                 trusted_proxies = [
-                  "192.168.0.0/16"
-                  "172.16.0.0/12"
-                  "10.0.0.0/10"
                   "127.0.0.1/8"
-                  "fd00::/8"
                   "::1/128"
                 ];
                 public_base = "https://mas.${_domain_base}/";
-                issuer = "https://auth.${_domain_base}/";
+                issuer = "https://mas.${_domain_base}/";
               };
               database = {
                 uri = "postgresql://mas@localhost/mas?host=/run/postgresql";
@@ -124,16 +120,12 @@ in
                 encryption = "$encryption";
                 keys = [
                   {
-                    key = "$key1";
+                    kid = "rsa-4096";
+                    key = "$key_rsa_4096";
                   }
                   {
-                    key = "$key2";
-                  }
-                  {
-                    key = "$key3";
-                  }
-                  {
-                    key = "$key4";
+                    kid = "ec-p384";
+                    key = "$key_ec_p384";
                   }
                 ];
               };
@@ -164,11 +156,12 @@ in
                     client_secret = "$provider_client_secret";
                     token_endpoint_auth_method = "client_secret_basic";
                     scope = "openid profile email";
-                    discovery_mode = "insecure";
                     fetch_userinfo = true;
                     claims_imports = {
                       localpart = {
                         action = "require";
+                        on_conflict = "fail";
+                        on_backchannel_logout = "logout_all";
                         template = "{{ user.preferred_username }}";
                       };
                       displayname = {
