@@ -29,4 +29,5 @@ mkSecret [
   "vaultwarden-smtp"
   "immich-oidc-secret"
   "matrix-livekit-key"
+  "msmtp-smtp"
 ]

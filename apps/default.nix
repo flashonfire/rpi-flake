@@ -13,5 +13,6 @@
     ./forgejo.nix
     ./vaultwarden.nix
     ./immich.nix
+    ./msmtp.nix
   ];
 }
