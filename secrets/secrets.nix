@@ -22,7 +22,6 @@ mkSecret [
   "smtp"
   "synapse-signingKey"
   "synapse-masSharedSecret"
-  "mas-config"
   "forgejo-smtp"
   "forgejo-runner-token"
   "forgejo-oidc-shared-secret"
@@ -34,4 +33,6 @@ mkSecret [
   "mas/key_rsa_4096"
   "mas/key_ec_p384"
   "mas/client_secret"
+  "mas/matrix_secret"
+  "mas/provider_client_secret"
 ]

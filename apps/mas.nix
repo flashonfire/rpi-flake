@@ -9,11 +9,12 @@
 let
   secrets = _utils.setupSecrets config {
     secrets = [
-      "mas-config"
       "mas/encryption"
       "mas/key_rsa_4096"
       "mas/key_ec_p384"
       "mas/client_secret"
+      "mas/matrix_secret"
+      "mas/provider_client_secret"
     ];
     extra = {
       owner = "mas";
@@ -59,7 +60,6 @@ in
     requires = [ "postgresql.service" ];
     serviceConfig = {
       Restart = "on-failure";
-      EnvironmentFile = secrets.get "mas-config";
       ExecStart = "${pkgs.matrix-authentication-service}/bin/mas-cli -c ${settingsFile} server";
       # DynamicUser = true;
       User = "mas";
@@ -139,14 +139,14 @@ in
               matrix = {
                 homeserver = _domain_base;
                 endpoint = "http://[::1]:8008/";
-                secret = "$matrix_secret";
+                secret_file = secrets.get "mas/matrix_secret";
               };
 
               clients = [
                 {
                   client_id = "0000000000000000000SYNAPSE";
                   client_auth_method = "client_secret_basic";
-                  client_secret = secrets.get "mas/client_secret";
+                  client_secret_file = secrets.get "mas/client_secret";
                 }
               ];
 
@@ -157,7 +157,7 @@ in
                     human_name = "Authelia";
                     issuer = "https://auth.${_domain_base}";
                     client_id = "IkhbiLxn.MQVKQeBFAlvMfu3-RdUMScM0PcnpDSyjSTGwjs0VGveq_yii.GOavtNyoZYC9U6";
-                    client_secret = "$provider_client_secret";
+                    client_secret_file = secrets.get "mas/provider_client_secret";
                     token_endpoint_auth_method = "client_secret_basic";
                     scope = "openid profile email";
                     fetch_userinfo = true;
