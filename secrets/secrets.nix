@@ -33,4 +33,5 @@ mkSecret [
   "mas/encryption"
   "mas/key_rsa_4096"
   "mas/key_ec_p384"
+  "mas/client_secret"
 ]

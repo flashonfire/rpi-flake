@@ -13,6 +13,7 @@ let
       "mas/encryption"
       "mas/key_rsa_4096"
       "mas/key_ec_p384"
+      "mas/client_secret"
     ];
     extra = {
       owner = "mas";
@@ -120,15 +121,15 @@ in
                 transport = "blackhole";
               };
               secrets = {
-                encryption_file = "${secrets.get "mas/encryption"}";
+                encryption_file = secrets.get "mas/encryption";
                 keys = [
                   {
                     kid = "rsa-4096";
-                    key_file = "${secrets.get "mas/key_rsa_4096"}";
+                    key_file = secrets.get "mas/key_rsa_4096";
                   }
                   {
                     kid = "ec-p384";
-                    key_file = "${secrets.get "mas/key_ec_p384"}";
+                    key_file = secrets.get "mas/key_ec_p384";
                   }
                 ];
               };
@@ -145,7 +146,7 @@ in
                 {
                   client_id = "0000000000000000000SYNAPSE";
                   client_auth_method = "client_secret_basic";
-                  client_secret = "$client_secret";
+                  client_secret = secrets.get "mas/client_secret";
                 }
               ];
 
