@@ -1,4 +1,9 @@
-{ config, _utils, ... }:
+{
+  config,
+  _domain_base,
+  _utils,
+  ...
+}:
 let
   secrets = _utils.setupSecrets config {
     secrets = [
@@ -17,29 +22,25 @@ in
   ];
 
   systemd.tmpfiles.rules = [
-    "d /storage/synapse-media 0750 matrix-synapse matrix-synapse - -"
     "d /storage/matrix-synapse 0750 matrix-synapse matrix-synapse - -"
   ];
 
   services.matrix-synapse = {
     enable = true;
-    extras = [
-      "systemd"
-      "url-preview"
-      "oidc"
-    ];
 
     dataDir = "/storage/matrix-synapse";
 
     settings = {
-      server_name = "lithium.ovh";
-      public_baseurl = "https://matrix.lithium.ovh";
-      federation_client_minimum_tls_version = 1.2;
-      enable_registration = false;
-      max_upload_size = "100M";
-
+      server_name = _domain_base;
+      public_baseurl = "https://matrix.${_domain_base}";
       signing_key_path = secrets.get "synapse-signingKey";
-      media_store_path = "/storage/synapse-media";
+
+      enable_registration = false;
+      url_preview_enabled = true;
+      delete_stale_devices_after = "90d";
+
+      federation_client_minimum_tls_version = "1.2";
+      max_upload_size = "100M";
       max_event_delay_duration = "24h";
 
       database = {
@@ -60,9 +61,7 @@ in
             {
               names = [
                 "client" # implies ["media" "static"]
-                "federation"
-                # "keys"
-                # "replication"
+                "federation" # implies ["media" "keys"]
               ];
             }
           ];
@@ -98,6 +97,8 @@ in
           };
         }
       ];
+
+      suppress_key_server_warning = true;
     };
   };
 
@@ -107,8 +108,7 @@ in
       CREATE DATABASE "matrix-synapse" WITH OWNER "matrix-synapse"
         TEMPLATE template0
         LC_COLLATE = "C"
-        LC_CTYPE
-         = "C";
+        LC_CTYPE = "C";
     ''
   ];
 }
