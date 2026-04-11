@@ -6,6 +6,7 @@
     ./matrix
 
     ./adguard.nix
+    ./openssh.nix
     ./authelia.nix
     ./caddy.nix
     ./postgres.nix
