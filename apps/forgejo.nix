@@ -28,12 +28,7 @@ in
     secrets.generate
   ];
 
-  # mkforce to fix conflict with other services
-  # services.openssh.settings.AcceptEnv = lib.mkForce [
-  #   "GIT_PROTOCOL"
-  #   "LANG"
-  #   "LC_*"
-  # ];
+  services.openssh.settings.AcceptEnv = [ "GIT_PROTOCOL" ];
 
   services = {
     forgejo = {
@@ -56,6 +51,11 @@ in
           HTTP_PORT = port;
           START_SSH_SERVER = false;
           BUILTIN_SSH_SERVER_USER = "forgejo";
+        };
+
+        cache = {
+          ADAPTER = "twoqueue";
+          HOST = ''{"size":100,"recent_ratio":0.25,"ghost_ratio":0.5}'';
         };
 
         oauth2 = {
@@ -101,7 +101,7 @@ in
         # Profile Picture > Site Administration > Configuration >  Mailer Configuration
         mailer = {
           ENABLED = true;
-          FROM = "noreply@${domain}";
+          FROM = "noreply@${_domain_base}";
           PROTOCOL = "smtp";
           SMTP_ADDR = _smtp_address;
           SMTP_PORT = 587;
@@ -127,9 +127,9 @@ in
 
         settings = {
           log.level = "info";
-          container.network = "host";
+          container.network = "bridge";
           runner = {
-            capacity = 4;
+            capacity = 2;
             timeout = "5h";
             insecure = false;
           };
