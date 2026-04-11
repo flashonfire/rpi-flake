@@ -135,7 +135,7 @@ in
 
       # Default route for livekit
       handle {
-        import custom_reverse_proxy http://localhost:7880
+        import custom_reverse_proxy http://[::1]:7880
       }
     '';
 

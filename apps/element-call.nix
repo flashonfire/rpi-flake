@@ -1,4 +1,9 @@
-{ config, _utils, ... }:
+{
+  config,
+  _domain_base,
+  _utils,
+  ...
+}:
 let
   secrets = _utils.setupSecrets config {
     secrets = [
@@ -24,7 +29,7 @@ in
         };
 
         logging = {
-          level = "debug";
+          level = "info";
           sample = false;
         };
       };
@@ -36,6 +41,7 @@ in
       keyFile = secrets.get "matrix-livekit-key";
       livekitUrl = "wss://matrix-rtc.lithium.ovh";
     };
-
   };
+
+  systemd.services.lk-jwt-service.environment.LIVEKIT_FULL_ACCESS_HOMESERVERS = _domain_base;
 }
