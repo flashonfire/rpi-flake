@@ -20,17 +20,19 @@
       enable = true;
       package = pkgs.postgresql_18;
 
-      settings.port = 5432;
-      enableTCPIP = true;
-
       dataDir = "/storage/postgresql";
+
+      enableTCPIP = false;
+
+      settings.max_connections = 25;
 
       # local synapse synapse scram-sha-256
       authentication = ''
-        local all all peer
+        local sameuser all peer
+        local all postgres peer
       '';
 
-      initialScript = pkgs.writeText "init-script.sql" (
+      initialScript = pkgs.writeText "postgres-init-script.sql" (
         lib.concatStrings (config.postgres.initialScripts or [ ])
       );
     };
