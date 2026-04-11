@@ -167,12 +167,18 @@ in
     wantedBy = [ "multi-user.target" ];
     after = [ "postgresql.service" ];
     requires = [ "postgresql.service" ];
-    serviceConfig = {
-      Restart = "on-failure";
-      ExecStart = "${pkgs.matrix-authentication-service}/bin/mas-cli -c ${settingsFile} server";
-      # DynamicUser = true;
-      User = "mas";
-      Group = "mas";
-    };
+    serviceConfig =
+      let
+        binary = lib.getExe pkgs.matrix-authentication-service;
+      in
+      {
+        Restart = "on-failure";
+        RestartSec = "5s";
+        ExecStartPre = "${binary} config check --config ${settingsFile}";
+        ExecStart = "${binary} --config ${settingsFile} server";
+        # DynamicUser = true;
+        User = "mas";
+        Group = "mas";
+      };
   };
 }
