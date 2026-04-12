@@ -172,6 +172,18 @@
         "url": "https://github.com/FlashOnFire/nixpkgs/commit/21ac28efd25e238b5599fad64077e79b7fb2d08d.patch"
       }
     },
+    "nixpkgs-patch-fix-mypy": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-JRIl4spEOQn7rtdKKSm64IuFY6t1WV0iZ4fBipoNBlk=",
+        "type": "file",
+        "url": "https://github.com/FlashOnFire/nixpkgs/commit/f4bc8453464ac0238fc43967d53ab600396d8674.patch"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://github.com/FlashOnFire/nixpkgs/commit/f4bc8453464ac0238fc43967d53ab600396d8674.patch"
+      }
+    },
     "nixpkgs-patch-fix-python-librt-cross": {
       "flake": false,
       "locked": {
@@ -218,6 +230,7 @@
         "nixos-raspberrypi": "nixos-raspberrypi",
         "nixpkgs": "nixpkgs",
         "nixpkgs-patch-fix-kitty-cross": "nixpkgs-patch-fix-kitty-cross",
+        "nixpkgs-patch-fix-mypy": "nixpkgs-patch-fix-mypy",
         "nixpkgs-patch-fix-python-librt-cross": "nixpkgs-patch-fix-python-librt-cross",
         "nixpkgs-patch-fix-python-orjson-cross": "nixpkgs-patch-fix-python-orjson-cross",
         "nixpkgs-patcher": "nixpkgs-patcher",

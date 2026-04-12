@@ -23,6 +23,16 @@
       flake = false;
     };
 
+    nixpkgs-patch-fix-python-librt-cross = {
+      url = "https://github.com/FlashOnFire/nixpkgs/commit/5e9b1541b3075895b38d7dad4fe4a7748704e809.patch";
+      flake = false;
+    };
+
+    nixpkgs-patch-fix-mypy = {
+      url = "https://github.com/FlashOnFire/nixpkgs/commit/f4bc8453464ac0238fc43967d53ab600396d8674.patch";
+      flake = false;
+    };
+
     agenix = {
       url = "github:ryantm/agenix";
       inputs = {
