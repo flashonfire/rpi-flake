@@ -35,4 +35,5 @@ mkSecret [
   "mas/client_secret"
   "mas/matrix_secret"
   "mas/provider_client_secret"
+  "grafana/secret_key"
 ]

@@ -15,5 +15,6 @@
     ./immich.nix
     ./msmtp.nix
     ./homeassistant.nix
+    ./grafana.nix
   ];
 }

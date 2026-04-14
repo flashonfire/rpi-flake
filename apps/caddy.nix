@@ -220,5 +220,13 @@ in
 
       import custom_reverse_proxy localhost:8123
     '';
+
+    virtualHosts."https://grafana.${_domain_base}".extraConfig = ''
+      import authelia_auth
+      import common
+      import default_permissions
+
+      import custom_reverse_proxy localhost:3000
+    '';
   };
 }
