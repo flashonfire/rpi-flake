@@ -250,6 +250,18 @@ in
                 }
               ];
             };
+
+            grafana_policy = {
+              default_policy = "deny";
+              rules = [
+                {
+                  policy = "two_factor";
+                  subject = [
+                    "group:owner"
+                  ];
+                }
+              ];
+            };
           };
 
           claims_policies = {
@@ -297,6 +309,7 @@ in
               ];
               response_types = [ "code" ];
             }
+
             {
               client_id = "SvETHomqH_6hOoZVLqZhKABkrkEMCJmltIOV8At-dznHOZyPDeG8stGCN_M5R0Ipy1wN2cBO";
               client_name = "Forgejo";
@@ -317,6 +330,7 @@ in
               userinfo_signed_response_alg = "none";
               token_endpoint_auth_method = "client_secret_basic";
             }
+
             {
               client_id = "CUkbjHcjkc9K4ZyCdcnaYwdub66eY5F-BJScctEVS5DBTeUp954ZzWNnAbbGWCIGv1Xi58Nf";
               client_name = "Immich";
@@ -342,6 +356,30 @@ in
               access_token_signed_response_alg = "RS256";
               userinfo_signed_response_alg = "RS256";
               token_endpoint_auth_method = "client_secret_post";
+            }
+
+            {
+              client_id = "jsoV4vPZJEM2E77mHNrqg1O0B223Tte82YuRosj0cz5pJBZyiDawH-kioHPr7xX-AUoM34pt";
+              client_name = "Grafana";
+              client_secret = "$pbkdf2-sha512$310000$NcdmTOM90vyDBsbq3V1yNA$DBisUOqSY9nGEBMmTnaEZxN1npQJfcXM0LarEflWhRoxrmKuTLTDVFq1EbF9x/2x7wb3DgubpnxW9kzz7H8XZg";
+              public = false;
+              authorization_policy = "grafana_policy";
+              require_pkce = true;
+              pkce_challenge_method = "S256";
+              redirect_uris = [
+                "https://grafana.${_domain_base}/login/generic_oauth"
+              ];
+              scopes = [
+                "openid"
+                "email"
+                "profile"
+                "groups"
+              ];
+              response_types = [ "code" ];
+              grant_types = [ "authorization_code" ];
+              access_token_signed_response_alg = "none";
+              userinfo_signed_response_alg = "none";
+              token_endpoint_auth_method = "client_secret_basic";
             }
           ];
         };
