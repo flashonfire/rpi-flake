@@ -58,11 +58,13 @@
   # networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
 
   networking.firewall.allowedTCPPorts = [
-    53
     443
     7881
   ];
-  networking.firewall.allowedUDPPorts = [ 53 ];
+  networking.firewall.extraInputRules = ''
+    ip saddr 192.168.1.0/24 udp dport 53 accept
+    ip6 saddr fc00::/7 udp dport 53 accept
+  '';
   networking.firewall.allowedUDPPortRanges = [
     # Matrix Livekit
     {
