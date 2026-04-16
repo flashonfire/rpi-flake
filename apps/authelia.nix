@@ -275,6 +275,14 @@ in
                 };
               };
             };
+            grafana_policy = {
+              id_token = [
+                "email"
+                "name"
+                "groups"
+                "preferred_username"
+              ];
+            };
           };
 
           scopes = {
@@ -364,6 +372,7 @@ in
               client_secret = "$pbkdf2-sha512$310000$NcdmTOM90vyDBsbq3V1yNA$DBisUOqSY9nGEBMmTnaEZxN1npQJfcXM0LarEflWhRoxrmKuTLTDVFq1EbF9x/2x7wb3DgubpnxW9kzz7H8XZg";
               public = false;
               authorization_policy = "grafana_policy";
+              claims_policy = "grafana_policy";
               require_pkce = true;
               pkce_challenge_method = "S256";
               redirect_uris = [
@@ -374,9 +383,13 @@ in
                 "email"
                 "profile"
                 "groups"
+                "offline_access"
               ];
               response_types = [ "code" ];
-              grant_types = [ "authorization_code" ];
+              grant_types = [
+                "authorization_code"
+                "refresh_token"
+              ];
               access_token_signed_response_alg = "none";
               userinfo_signed_response_alg = "none";
               token_endpoint_auth_method = "client_secret_basic";
