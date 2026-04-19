@@ -262,6 +262,18 @@ in
                 }
               ];
             };
+
+            oxicloud_policy = {
+              default_policy = "deny";
+              rules = [
+                {
+                  policy = "two_factor";
+                  subject = [
+                    "group:owner"
+                  ];
+                }
+              ];
+            };
           };
 
           claims_policies = {
@@ -393,6 +405,30 @@ in
               access_token_signed_response_alg = "none";
               userinfo_signed_response_alg = "none";
               token_endpoint_auth_method = "client_secret_basic";
+            }
+
+            {
+              client_id = "iwf2Uz-RTcPID5xkWIk449Mg2ZgsDXt4CePs0yeguQO8XsjNgDJoSYOxVP1biBtJe.2JJ450";
+              client_name = "Oxicloud";
+              client_secret = "$pbkdf2-sha512$310000$2STuCHliZI/uc1rjktHnFQ$PxOhW2o4vq5PQxAhjwxqPTUR45YbyOSZXkStwZmX0kTU/4DdRFMVNAlvN0lT7sGOh0/Ym3QIuErVmJYJI36BNQ";
+              public = false;
+              authorization_policy = "oxicloud_policy";
+              require_pkce = true;
+              pkce_challenge_method = "S256";
+              redirect_uris = [
+                "https://cloud.${_domain_base}/api/auth/oidc/callback"
+              ];
+              scopes = [
+                "openid"
+                "profile"
+                "email"
+                "groups"
+              ];
+              grant_types = [
+                "authorization_code"
+              ];
+              response_types = [ "code" ];
+              token_endpoint_auth_method = "client_secret_post";
             }
           ];
         };

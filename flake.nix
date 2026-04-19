@@ -33,6 +33,16 @@
       flake = false;
     };
 
+    nixpkgs-patch-add-oxicloud-package = {
+      url = "https://patch-diff.githubusercontent.com/raw/NixOS/nixpkgs/pull/511236.patch";
+      flake = false;
+    };
+
+    nixpkgs-patch-add-oxicloud-module = {
+      url = "https://github.com/flashonfire/nixpkgs/commit/09cfca4aa380.patch";
+      flake = false;
+    };
+
     agenix = {
       url = "github:ryantm/agenix";
       inputs = {

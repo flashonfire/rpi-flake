@@ -16,5 +16,6 @@
     ./msmtp.nix
     ./homeassistant.nix
     ./grafana.nix
+    ./oxicloud.nix
   ];
 }
