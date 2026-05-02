@@ -17,5 +17,6 @@
     ./homeassistant.nix
     ./grafana.nix
     ./oxicloud.nix
+    ./otbr.nix
   ];
 }

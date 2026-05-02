@@ -176,6 +176,14 @@ in
                 "group:grafana"
               ];
             }
+
+            {
+              domain = "thread.${_domain_base}";
+              policy = "two_factor";
+              subject = [
+                "group:owner"
+              ];
+            }
           ];
         };
 

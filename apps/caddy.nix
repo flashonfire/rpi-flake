@@ -235,5 +235,13 @@ in
 
       import custom_reverse_proxy localhost:8086
     '';
+
+    virtualHosts."https://thread.${_domain_base}".extraConfig = ''
+      import authelia_auth
+      import common
+      import default_permissions
+
+      import custom_reverse_proxy localhost:8082
+    '';
   };
 }

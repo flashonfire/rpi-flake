@@ -12,6 +12,10 @@
       # Recommended for fast zlib compression
       # https://www.home-assistant.io/integrations/isal
       "isal"
+
+      "matter"
+      "otbr"
+      "thread"
     ];
 
     extraPackages = ps: with ps; [ psycopg2 ];
