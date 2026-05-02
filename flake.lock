@@ -172,18 +172,6 @@
         "url": "https://github.com/flashonfire/nixpkgs/commit/09cfca4aa380.patch"
       }
     },
-    "nixpkgs-patch-add-oxicloud-package": {
-      "flake": false,
-      "locked": {
-        "narHash": "sha256-bmvY1r+1unnMCPssnNjuL/lLzEt3E1ma/soJlBkO52w=",
-        "type": "file",
-        "url": "https://patch-diff.githubusercontent.com/raw/NixOS/nixpkgs/pull/511236.patch"
-      },
-      "original": {
-        "type": "file",
-        "url": "https://patch-diff.githubusercontent.com/raw/NixOS/nixpkgs/pull/511236.patch"
-      }
-    },
     "nixpkgs-patch-fix-mypy": {
       "flake": false,
       "locked": {
@@ -194,6 +182,18 @@
       "original": {
         "type": "file",
         "url": "https://github.com/FlashOnFire/nixpkgs/commit/f4bc8453464ac0238fc43967d53ab600396d8674.patch"
+      }
+    },
+    "nixpkgs-patch-fix-oxicloud-cross": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-um5tz6/dWC3dXuWO6PpM7PylTPQefaFQEayLueTyWhE=",
+        "type": "file",
+        "url": "https://github.com/FlashOnFire/nixpkgs/commit/5ed331e4c2375a0f8362b40188cc498673e80141.patch"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://github.com/FlashOnFire/nixpkgs/commit/5ed331e4c2375a0f8362b40188cc498673e80141.patch"
       }
     },
     "nixpkgs-patch-fix-python-hass-chip-wheels": {
@@ -223,13 +223,13 @@
     "nixpkgs-patch-fix-python-orjson-cross": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-xBNKmzuuK/sUtOYfcP3x9NlfxEs4oDjv2yGvZuEkHNQ=",
+        "narHash": "sha256-LTR5H4aB8v2XVYRUVzbLs7nrnvgjogrNlsI0LEOx92k=",
         "type": "file",
-        "url": "https://github.com/FlashOnFire/nixpkgs/commit/327639b64c3eb70cecc94e6b9e69a39a0903caa8.patch"
+        "url": "https://github.com/FlashOnFire/nixpkgs/commit/96b4c4a72fa20d01d22b4043fab1b0793070454d.patch"
       },
       "original": {
         "type": "file",
-        "url": "https://github.com/FlashOnFire/nixpkgs/commit/327639b64c3eb70cecc94e6b9e69a39a0903caa8.patch"
+        "url": "https://github.com/FlashOnFire/nixpkgs/commit/96b4c4a72fa20d01d22b4043fab1b0793070454d.patch"
       }
     },
     "nixpkgs-patcher": {
@@ -254,8 +254,8 @@
         "nixos-raspberrypi": "nixos-raspberrypi",
         "nixpkgs": "nixpkgs",
         "nixpkgs-patch-add-oxicloud-module": "nixpkgs-patch-add-oxicloud-module",
-        "nixpkgs-patch-add-oxicloud-package": "nixpkgs-patch-add-oxicloud-package",
         "nixpkgs-patch-fix-mypy": "nixpkgs-patch-fix-mypy",
+        "nixpkgs-patch-fix-oxicloud-cross": "nixpkgs-patch-fix-oxicloud-cross",
         "nixpkgs-patch-fix-python-hass-chip-wheels": "nixpkgs-patch-fix-python-hass-chip-wheels",
         "nixpkgs-patch-fix-python-librt-cross": "nixpkgs-patch-fix-python-librt-cross",
         "nixpkgs-patch-fix-python-orjson-cross": "nixpkgs-patch-fix-python-orjson-cross",

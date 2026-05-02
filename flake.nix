@@ -14,7 +14,7 @@
     };
 
     nixpkgs-patch-fix-python-orjson-cross = {
-      url = "https://github.com/FlashOnFire/nixpkgs/commit/327639b64c3eb70cecc94e6b9e69a39a0903caa8.patch";
+      url = "https://github.com/FlashOnFire/nixpkgs/commit/96b4c4a72fa20d01d22b4043fab1b0793070454d.patch";
       flake = false;
     };
 
@@ -33,13 +33,13 @@
       flake = false;
     };
 
-    nixpkgs-patch-add-oxicloud-package = {
-      url = "https://patch-diff.githubusercontent.com/raw/NixOS/nixpkgs/pull/511236.patch";
+    nixpkgs-patch-add-oxicloud-module = {
+      url = "https://github.com/flashonfire/nixpkgs/commit/09cfca4aa380.patch";
       flake = false;
     };
 
-    nixpkgs-patch-add-oxicloud-module = {
-      url = "https://github.com/flashonfire/nixpkgs/commit/09cfca4aa380.patch";
+    nixpkgs-patch-fix-oxicloud-cross = {
+      url = "https://github.com/FlashOnFire/nixpkgs/commit/5ed331e4c2375a0f8362b40188cc498673e80141.patch";
       flake = false;
     };
 
@@ -97,8 +97,9 @@
                     postgresql18Packages = nativeAarch64Pkgs.postgresql18Packages;
                     postgresql = nativeAarch64Pkgs.postgresql;
 
-                    # Atop does not cross compile
+                    # These do not cross compile
                     atop = nativeAarch64Pkgs.atop;
+                    openblas = nativeAarch64Pkgs.openblas;
 
                     # Speed up compilation by leveraging cache
                     kitty = nativeAarch64Pkgs.kitty;
