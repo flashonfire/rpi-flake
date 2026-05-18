@@ -114,8 +114,6 @@
                     adguardhome = nativeAarch64Pkgs.adguardhome;
                     cinny = nativeAarch64Pkgs.cinny;
                     fio = nativeAarch64Pkgs.fio;
-                    # matrix-synapse = nativeAarch64Pkgs.matrix-synapse;
-                    # matrix-authentication-service = nativeAarch64Pkgs.matrix-authentication-service;
                   })
                   (final: prev: {
                     matrix-synapse-unwrapped = prev.matrix-synapse-unwrapped.overrideAttrs (_: {
