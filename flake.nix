@@ -13,33 +13,37 @@
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
 
+    # Merged to upstream staging, waiting for staging merge
     nixpkgs-patch-fix-python-librt-cross = {
       url = "https://github.com/FlashOnFire/nixpkgs/commit/5e9b1541b3075895b38d7dad4fe4a7748704e809.patch";
       flake = false;
     };
 
+    # Depends on above patch, ready to upstream
+    nixpkgs-patch-fix-matter-server = {
+      url = "https://github.com/FlashOnFire/nixpkgs/commit/90fb8de119a2.patch";
+      flake = false;
+    };
     nixpkgs-patch-fix-mypy = {
       url = "https://github.com/FlashOnFire/nixpkgs/commit/f4bc8453464ac0238fc43967d53ab600396d8674.patch";
       flake = false;
     };
 
+    # Depends on mypy patch and needs rework
     nixpkgs-patch-fix-python-hass-chip-wheels = {
       url = "https://github.com/flashonfire/nixpkgs/commit/53cc657f8cf5a91f01bc3e5257ac8cc0fbaf8bb2.patch";
       flake = false;
     };
 
+    # In PR
     nixpkgs-patch-add-oxicloud-module = {
       url = "https://github.com/flashonfire/nixpkgs/commit/06217a4eccbd.patch";
       flake = false;
     };
 
+    # needs rework
     nixpkgs-patch-fix-oxicloud-cross = {
       url = "https://github.com/FlashOnFire/nixpkgs/commit/3731a27f20d3.patch";
-      flake = false;
-    };
-
-    nixpkgs-patch-fix-matter-server = {
-      url = "https://github.com/FlashOnFire/nixpkgs/commit/187b474c85e9.patch";
       flake = false;
     };
 

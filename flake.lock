@@ -175,13 +175,13 @@
     "nixpkgs-patch-fix-matter-server": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-juA8Akd6N7gSW93SJ7RnpKBYbHB01W/VQnSeXvuyZIc=",
+        "narHash": "sha256-krdkru4xb5m+3+odN3HzxbsqxoA9hNipSVdt/0jTvOw=",
         "type": "file",
-        "url": "https://github.com/FlashOnFire/nixpkgs/commit/187b474c85e9.patch"
+        "url": "https://github.com/FlashOnFire/nixpkgs/commit/90fb8de119a2.patch"
       },
       "original": {
         "type": "file",
-        "url": "https://github.com/FlashOnFire/nixpkgs/commit/187b474c85e9.patch"
+        "url": "https://github.com/FlashOnFire/nixpkgs/commit/90fb8de119a2.patch"
       }
     },
     "nixpkgs-patch-fix-mypy": {
