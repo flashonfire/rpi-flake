@@ -115,21 +115,6 @@
                     cinny = nativeAarch64Pkgs.cinny;
                     fio = nativeAarch64Pkgs.fio;
                   })
-                  (final: prev: {
-                    matrix-synapse-unwrapped = prev.matrix-synapse-unwrapped.overrideAttrs (_: {
-                      version = "1.152.1";
-                      src = prev.fetchFromGitHub {
-                        owner = "element-hq";
-                        repo = "synapse";
-                        rev = "v1.152.1";
-                        hash = "sha256-81nqT6/TuqtQjjqnT6O+72WCCPlZ9JJKbWczMh6mbcU=";
-                      };
-                    });
-
-                    matrix-synapse = prev.matrix-synapse.override {
-                      matrix-synapse-unwrapped = final.matrix-synapse-unwrapped;
-                    };
-                  })
                 ];
               }
             )
