@@ -53,10 +53,10 @@
 
   # mitigations for copy fail and dirty frag CVEs
   boot.extraModprobeConfig = ''
-    install algif_aead /bin/false
-    install esp4 /bin/false
-    install esp6 /bin/false
-    install rxrpc /bin/false
+    install algif_aead ${pkgs.busybox}/false
+    install esp4 ${pkgs.busybox}/false
+    install esp6 ${pkgs.busybox}/false
+    install rxrpc ${pkgs.busybox}/false
   '';
 
   boot.blacklistedKernelModules = [
