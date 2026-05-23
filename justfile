@@ -3,19 +3,20 @@ alias d := deploy
 alias c := check
 alias u := update
 
+hostname := "lithium"
 domain := "lithium.ovh"
 
 # Build flake
 build *FLAGS:
-    nh os build .#lithium --target-host nixos@{{domain}} {{FLAGS}}
+    nh os build .#{{ hostname }} --target-host nixos@{{domain}} {{FLAGS}}
 
 # Deploy to target (switch)
 deploy *FLAGS:
-    nh os switch .#lithium --target-host nixos@{{domain}} {{FLAGS}}
+    nh os switch .#{{ hostname }} --target-host nixos@{{domain}} {{FLAGS}}
 
 # Deploy to target (next boot)
 boot *FLAGS:
-    nh os boot .#lithium --target-host nixos@{{domain}} {{FLAGS}}
+    nh os boot .#{{ hostname }} --target-host nixos@{{domain}} {{FLAGS}}
 
 # Nix flake check
 check:
