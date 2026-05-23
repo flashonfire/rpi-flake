@@ -13,19 +13,17 @@
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
 
-    # Merged to upstream staging, waiting for staging merge
-    nixpkgs-patch-fix-python-librt-cross = {
-      url = "https://github.com/FlashOnFire/nixpkgs/commit/5e9b1541b3075895b38d7dad4fe4a7748704e809.patch";
-      flake = false;
-    };
-
-    # Depends on above patch, ready to upstream
+    # Ready to upstream
     nixpkgs-patch-fix-matter-server = {
-      url = "https://github.com/FlashOnFire/nixpkgs/commit/90fb8de119a2.patch";
+      url = "https://github.com/FlashOnFire/nixpkgs/commit/2a7cb5dbf9d2.patch";
       flake = false;
     };
     nixpkgs-patch-fix-mypy = {
       url = "https://github.com/FlashOnFire/nixpkgs/commit/f4bc8453464ac0238fc43967d53ab600396d8674.patch";
+      flake = false;
+    };
+    nixpkgs-patch-fix-git-cross = {
+      url = "https://github.com/NixOS/nixpkgs/commit/7b0345a5d696320a9f8b9c960d9c12eef7e444ba.patch";
       flake = false;
     };
 

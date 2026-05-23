@@ -172,16 +172,28 @@
         "url": "https://github.com/flashonfire/nixpkgs/commit/06217a4eccbd.patch"
       }
     },
-    "nixpkgs-patch-fix-matter-server": {
+    "nixpkgs-patch-fix-git-cross": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-krdkru4xb5m+3+odN3HzxbsqxoA9hNipSVdt/0jTvOw=",
+        "narHash": "sha256-J9Ls3wTeZS8SNTV/ANAZdr67rHAPrqTfksRUT8qt/RU=",
         "type": "file",
-        "url": "https://github.com/FlashOnFire/nixpkgs/commit/90fb8de119a2.patch"
+        "url": "https://github.com/NixOS/nixpkgs/commit/7b0345a5d696320a9f8b9c960d9c12eef7e444ba.patch"
       },
       "original": {
         "type": "file",
-        "url": "https://github.com/FlashOnFire/nixpkgs/commit/90fb8de119a2.patch"
+        "url": "https://github.com/NixOS/nixpkgs/commit/7b0345a5d696320a9f8b9c960d9c12eef7e444ba.patch"
+      }
+    },
+    "nixpkgs-patch-fix-matter-server": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-kT2K9fmmPV60ENiGDaVuR6tpNL5J5KulyzkTiw5hjRk=",
+        "type": "file",
+        "url": "https://github.com/FlashOnFire/nixpkgs/commit/2a7cb5dbf9d2.patch"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://github.com/FlashOnFire/nixpkgs/commit/2a7cb5dbf9d2.patch"
       }
     },
     "nixpkgs-patch-fix-mypy": {
@@ -220,18 +232,6 @@
         "url": "https://github.com/flashonfire/nixpkgs/commit/53cc657f8cf5a91f01bc3e5257ac8cc0fbaf8bb2.patch"
       }
     },
-    "nixpkgs-patch-fix-python-librt-cross": {
-      "flake": false,
-      "locked": {
-        "narHash": "sha256-BlgTgz0dZGDyd8tbO8kxcnzaWnlz24jcFIxqasdVySc=",
-        "type": "file",
-        "url": "https://github.com/FlashOnFire/nixpkgs/commit/5e9b1541b3075895b38d7dad4fe4a7748704e809.patch"
-      },
-      "original": {
-        "type": "file",
-        "url": "https://github.com/FlashOnFire/nixpkgs/commit/5e9b1541b3075895b38d7dad4fe4a7748704e809.patch"
-      }
-    },
     "nixpkgs-patcher": {
       "locked": {
         "lastModified": 1779142267,
@@ -254,11 +254,11 @@
         "nixos-raspberrypi": "nixos-raspberrypi",
         "nixpkgs": "nixpkgs",
         "nixpkgs-patch-add-oxicloud-module": "nixpkgs-patch-add-oxicloud-module",
+        "nixpkgs-patch-fix-git-cross": "nixpkgs-patch-fix-git-cross",
         "nixpkgs-patch-fix-matter-server": "nixpkgs-patch-fix-matter-server",
         "nixpkgs-patch-fix-mypy": "nixpkgs-patch-fix-mypy",
         "nixpkgs-patch-fix-oxicloud-cross": "nixpkgs-patch-fix-oxicloud-cross",
         "nixpkgs-patch-fix-python-hass-chip-wheels": "nixpkgs-patch-fix-python-hass-chip-wheels",
-        "nixpkgs-patch-fix-python-librt-cross": "nixpkgs-patch-fix-python-librt-cross",
         "nixpkgs-patcher": "nixpkgs-patcher",
         "systems": "systems_2"
       }
